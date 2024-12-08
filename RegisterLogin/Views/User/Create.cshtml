@@ -1,0 +1,229 @@
+﻿@*@model RegisterLogin.Models.Users
+
+@{
+    ViewData["Title"] = "Create";
+}*@
+
+@*<h1>Create</h1>
+*@
+@*<h4>Users</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>*@
+           @* <br/>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label">Gender</label>
+                <div>
+                    <input asp-for="Gender" type="radio" value="Male" /> Male
+                    <input asp-for="Gender" type="radio" value="Female" /> Female
+                </div>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@
+
+@model RegisterLogin.Models.Users
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<!-- Full Page Background with Centered Form -->
+<div class="d-flex justify-content-center align-items-center min-vh-100" style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7 col-sm-9">
+                <div class="card shadow-sm" style="border-radius: 10px;">
+
+                    <!-- Header -->
+                    <div class="card-header text-center" style="background-color: #007bff; color: white; border-radius: 10px 10px 0 0;">
+                        <h2 class="font-weight-bold">Create Account</h2>
+                        <p>Join us for an amazing experience!</p>
+                    </div>
+
+                    <!-- Form Starts Here -->
+                    <div class="card-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                            <!-- First Name -->
+                            <div class="mb-3">
+                                <label asp-for="FirstName" class="form-label">First Name</label>
+                                <input asp-for="FirstName" class="form-control" placeholder="Enter your first name" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="mb-3">
+                                <label asp-for="LastName" class="form-label">Last Name</label>
+                                <input asp-for="LastName" class="form-control" placeholder="Enter your last name" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+
+                            <!-- Username -->
+                           @* <div class="mb-3">
+                                <label asp-for="UserName" class="form-label">Username</label>
+                                <input asp-for="UserName" class="form-control" placeholder="Choose a username" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>*@
+                            <div class="form-group">
+                                <label for="UserName">Username</label>
+                                <input type="text" class="form-control" id="UserName" name="UserName" onblur="checkUserName()" />
+                                <span id="userNameError" class="text-danger" style="display:none;">Username is already taken</span>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label asp-for="Email" class="form-label">Email</label>
+                                <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <!-- Gender Radio Buttons -->
+                            <div class="mb-3">
+                                <label class="form-label">Gender</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input asp-for="Gender" type="radio" value="Male" class="form-check-input" id="maleRadio" />
+                                        <label class="form-check-label" for="maleRadio">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input asp-for="Gender" type="radio" value="Female" class="form-check-input" id="femaleRadio" />
+                                        <label class="form-check-label" for="femaleRadio">Female</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                            <!--Date Of Birth-->
+                            <div class="mb-3">
+                                <label asp-for="DoB" class="form-label">Date of Birth</label>
+                                <input asp-for="DoB" class="form-control" type="date" />
+                                <span asp-validation-for="DoB" class="text-danger"></span>
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div class="mb-3">
+                                <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter your phone number" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label asp-for="Password" class="form-label">Password</label>
+                                <input asp-for="Password" class="form-control" type="password" placeholder="Choose a password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="mb-4">
+                                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                                <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Confirm your password" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Back to List Link -->
+                <div class="text-center mt-4">
+                    <a asp-action="Index" class="text-primary" style="text-decoration: underline;">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function checkUserName() {
+        var userName = $("#UserName").val();
+
+        // Make AJAX call to check username uniqueness
+        $.ajax({
+            url: '@Url.Action("IsUserNameUnique", "User")', // API endpoint
+            type: 'POST',
+            data: { userName: userName },
+            success: function (response) {
+                if (response.isUnique) {
+                    $("#userNameError").hide();  // Hide error if unique
+                } else {
+                    $("#userNameError").show();  // Show error if not unique
+                }
+            }
+        });
+    }
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
