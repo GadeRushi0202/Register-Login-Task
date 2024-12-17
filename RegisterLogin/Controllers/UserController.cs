@@ -35,28 +35,7 @@ namespace RegisterLogin.Controllers
             return View();
         }
 
-        // POST: UserController/Create
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Users users)
-        {
-            try
-            {
-                int result = service.AddUsers(users);
-                if(result >= 1)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Users users)
@@ -237,8 +216,8 @@ namespace RegisterLogin.Controllers
             bool isUnique = service.IsUserNameUnique(userName);
             return Json(new { isUnique });
         }
-        // Forgot password view
-        /*public IActionResult ForgotPassword()
+        
+        public IActionResult ForgotPassword()
         {
             return View();
         }
@@ -263,41 +242,8 @@ namespace RegisterLogin.Controllers
 
             return View(new ResetPasswordModel { Token = token });
         }
-
-        [HttpPost]
-        public IActionResult ResetPassword(ResetPasswordModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                int result = service.ResetPassword(model.Token, model.NewPassword);
-                if (result > 0)
-                {
-                    ViewBag.Message = "Password has been reset successfully.";
-                    return View("Login");
-                }
-                else
-                {
-                    ViewBag.Error = "Failed to reset the password.";
-                }
-            }
-            return View(model);
-        }*/
-        // Forgot password view
-        public IActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult ForgotPassword(string userName)
-        {
-            service.SendPasswordResetEmail(userName);
-            ViewBag.Message = "If the username exists, a password reset link has been sent to the registered email.";
-            return View();
-        }
-
-        // Reset password view
-        public IActionResult ResetPassword(string token)
+        [HttpGet("ResetPassword")]
+        public IActionResult ResetPasswords(string token)
         {
             var user = service.GetUserByPasswordResetToken(token);
             if (user == null)

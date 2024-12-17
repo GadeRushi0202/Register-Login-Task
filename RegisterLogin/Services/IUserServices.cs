@@ -12,7 +12,6 @@ namespace RegisterLogin.Services
 
         Users Login(Users users);
 
-        //Users GetUser(string UserName, string Password);
         Users GetUsers(string UserName);
 
         bool IsUserNameUnique(string userName);

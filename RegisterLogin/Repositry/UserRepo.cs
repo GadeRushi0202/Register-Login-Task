@@ -34,10 +34,6 @@ namespace RegisterLogin.Repositry
             return db.user.ToList();
         }
 
-        /* public Users GetUser(string UserName, string Password)
-         {
-             return db.user.Where(u => u.UserName == UserName && u.Password == Password).FirstOrDefault();
-         }*/
         public Users GetUsers(string UserName)
         {
             return db.user.Where(u => u.UserName == UserName).SingleOrDefault();
